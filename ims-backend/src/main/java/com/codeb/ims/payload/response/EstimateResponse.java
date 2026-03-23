@@ -1,75 +1,33 @@
-package com.codeb.ims.entity;
+package com.codeb.ims.payload.response;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "estimates")
-public class Estimate {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "estimated_id")
+public class EstimateResponse {
     private Long estimatedId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chain_id", nullable = false)
-    private Chain chain;
-
-    @Column(name = "group_name", length = 50)
+    private Integer chainId;
+    private String companyName;
     private String groupName;
-
-    @Column(name = "brand_name", length = 50)
     private String brandName;
-
-    @Column(name = "zone_name", length = 50)
     private String zoneName;
-
-    @Column(name = "service", length = 100)
     private String serviceDetails;
-
-    @Column(name = "qty")
     private Integer qty;
-
-    @Column(name = "cost_per_unit")
     private Double costPerUnit;
-
-    @Column(name = "total_cost")
     private Double totalCost;
-
-    @Column(name = "delivery_date")
     private LocalDate deliveryDate;
-
-    @Column(name = "delivery_details", length = 100)
     private String deliveryDetails;
-
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
+    private Boolean isActive;
     private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    // Getters and Setters
     public Long getEstimatedId() { return estimatedId; }
     public void setEstimatedId(Long estimatedId) { this.estimatedId = estimatedId; }
 
-    public Chain getChain() { return chain; }
-    public void setChain(Chain chain) { this.chain = chain; }
+    public Integer getChainId() { return chainId; }
+    public void setChainId(Integer chainId) { this.chainId = chainId; }
+
+    public String getCompanyName() { return companyName; }
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
 
     public String getGroupName() { return groupName; }
     public void setGroupName(String groupName) { this.groupName = groupName; }

@@ -1,87 +1,40 @@
-package com.codeb.ims.entity;
+package com.codeb.ims.payload.response;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "invoices")
-public class Invoice {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class InvoiceResponse {
     private Long id;
-
-    @Column(name = "invoice_no", unique = true, nullable = false)
     private Integer invoiceNo;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estimated_id", nullable = false)
-    private Estimate estimate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chain_id", nullable = false)
-    private Chain chain;
-
-    @Column(name = "service_details", length = 50)
+    private Long estimatedId;
+    private Integer chainId;
+    private String companyName;
     private String serviceDetails;
-
-    @Column(name = "qty")
     private Integer qty;
-
-    @Column(name = "cost_per_qty")
     private Double costPerQty;
-
-    @Column(name = "amount_payable")
     private Double amountPayable;
-
-    @Column(name = "balance")
     private Double balance;
-
-    @Column(name = "date_of_payment")
+    private Double amountPaid;
     private LocalDateTime dateOfPayment;
-
-    @Column(name = "date_of_service")
     private LocalDate dateOfService;
-
-    @Column(name = "delivery_details", length = 100)
     private String deliveryDetails;
-
-    @Column(name = "email_id", length = 50)
     private String emailId;
+    private Boolean isActive;
 
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Integer getInvoiceNo() { return invoiceNo; }
     public void setInvoiceNo(Integer invoiceNo) { this.invoiceNo = invoiceNo; }
 
-    public Estimate getEstimate() { return estimate; }
-    public void setEstimate(Estimate estimate) { this.estimate = estimate; }
+    public Long getEstimatedId() { return estimatedId; }
+    public void setEstimatedId(Long estimatedId) { this.estimatedId = estimatedId; }
 
-    public Chain getChain() { return chain; }
-    public void setChain(Chain chain) { this.chain = chain; }
+    public Integer getChainId() { return chainId; }
+    public void setChainId(Integer chainId) { this.chainId = chainId; }
+
+    public String getCompanyName() { return companyName; }
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
 
     public String getServiceDetails() { return serviceDetails; }
     public void setServiceDetails(String serviceDetails) { this.serviceDetails = serviceDetails; }
@@ -98,6 +51,9 @@ public class Invoice {
     public Double getBalance() { return balance; }
     public void setBalance(Double balance) { this.balance = balance; }
 
+    public Double getAmountPaid() { return amountPaid; }
+    public void setAmountPaid(Double amountPaid) { this.amountPaid = amountPaid; }
+
     public LocalDateTime getDateOfPayment() { return dateOfPayment; }
     public void setDateOfPayment(LocalDateTime dateOfPayment) { this.dateOfPayment = dateOfPayment; }
 
@@ -112,10 +68,4 @@ public class Invoice {
 
     public Boolean getIsActive() { return isActive; }
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }
